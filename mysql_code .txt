@@ -1,0 +1,113 @@
+create database Real_state_design;
+use Real_state_design;
+
+CREATE TABLE owner (
+     ownerID int,
+     oname varchar(20) NOT NULL,
+     contact_no int NOT NULL,
+     email varchar(20) NOT NULL,
+     PRIMARY KEY (ownerID) 
+    );
+
+CREATE TABLE agent (
+     agentID int,
+     aname varchar(20) NOT NULL,
+     contact_no int NOT NULL,
+     email varchar(20) NOT NULL,
+     deals_completed int,
+     to_rent int,
+     to_sell int,
+     rating int,
+     PRIMARY KEY (agentID)
+    );
+
+CREATE TABLE property
+     ( propertyID int,
+     type varchar(10) NOT NULL,
+     bhk int NOT NULL,
+     category varchar(5),
+     locality varchar(20) NOT NULL,
+     city varchar(20) NOT NULL,
+     state varchar(20) NOT NULL,
+     features varchar(20),
+     agentID int ,
+     ownerID int,
+     PRIMARY KEY (propertyID),
+     FOREIGN KEY (ownerID) references owner(ownerID),
+     FOREIGN KEY (agentID) references agent(agentID)
+   );
+
+
+ CREATE TABLE buyer
+     ( buyerID int ,
+     bname varchar(20) NOT NULL,
+     contact_no int NOT NULL,
+     email varchar(20) NOT NULL,
+     agentID int,
+     propertyID int,
+     PRIMARY KEY (buyerID),
+     FOREIGN KEY (agentID) references agent(agentID),
+     FOREIGN KEY (propertyID) references property(propertyID)
+    );
+
+INSERT INTO agent (agentID, aname, contact_no, email,deals_completed, to_rent,to_sell,rating) VALUES
+(100, 'Utkarsh', 62123, 'ut@gmail.com', 4, 5, 3, 4),
+(101, 'Pankaj', 80123, 'pk@gmail.com', 3, 4, 2, 1),
+(102, 'Vishesh', 63123, 'vs@gmail.com', 6, 2, 3, 4),
+(103, 'Vikas', 72123, 'vk@gmail.com', 4, 5, 1, 1),
+(104, 'Pawan', 94123, 'pn@gmail.com', 4, 2, 3, 5);
+
+INSERT INTO owner (ownerID,oname,contact_no,email) VALUES
+(200, 'Shyam', 72123, 'sh@gmail.com'),
+(201, 'Satyam', 62135, 'sm@gmail.com'),
+(202, 'Sohan', 82123, 'sn@gmail.com'),
+(203, 'Lewis', 88143, 'lewis@gmail.com'),
+(204, 'Evin', 98343, 'evin@gmail.com'),
+(205, 'Ambar', 44441, 'amber@gmail.com'),
+(206, 'Paresh', 94302, 'paresh@gmail.com'),
+(207, 'Hardik', 93344, 'hp@gmail.com'),
+(208, 'Kundan', 62199, 'kg@gmail.com'),
+(209, 'Himesh', 78233, 'hm@gmail.com'),
+(210, 'Jatin', 67482, 'jatin@gmail.com'),
+(211, 'Punit', 42820, 'pp@gmail.com'),
+(212, 'Sunil', 32313, 'sp@gmail.com'),
+(213, 'Ritesh', 63864, 'rt@gmail.com'),
+(214, 'Madhu', 52865, 'madhu@gmail.com'),
+(215, 'Ashok', 31485, 'ashok@gmail.com'),
+(216, 'Kanika', 56832, 'kk@gmail.com'),
+(217, 'Sumer', 40089, 'sumer@gmail.com'),
+(218, 'Rishab', 55521, 'rp@gmail.com'),
+(219, 'Anamika', 99323, 'ak@gmail.com'),
+(220, 'Harman' , 32888, 'hm@gmail.com');
+
+
+INSERT INTO property (propertyID,type,bhk,category,locality,city,state,features,agentID,ownerID) VALUES
+(300,'Bungalow', 2, 'sale', 'Kamrup','Guwahati','Assam','near Airport',104, 203),
+(301,'Apartment', 2, 'rent', 'Mirza','Guwahati','Assam','near Airport',103, 208),
+(302,'Apartment', 3, 'rent', 'Kamakhya','Guwahati','Assam','near Railway',100, 209),
+(303,'Flat', 1, 'rent', 'G.S Road','Guwahati','Assam','on bank of river',101, 207),
+(304,'Flat', 2, 'sale', 'Bailey Road','patna','Bihar','near meuseum',102, 206),
+(305,'Apartment', 2, 'rent', 'JP road','Patna','Bihar','near Gandhi Maidan',100, 202),
+(306,'Farmhouse', 2, 'sale', 'Lanka','Varanasi','UP','near BHU',104, 200),
+(307,'Castle', 2, 'sale', 'Durgakund','Varanasi','UP','near coaching hub',100, 204),
+(308,'Flat', 2, 'rent', 'Civil Lines','Prayagraj','UP','near High court',103, 205),
+(309,'Mansion', 2, 'sale', 'Patrika Chauraha','Prayagraj','UP','near Drishti IAS',102, 201),
+(310,'Flat' , 3, 'rent', 'Malviya Nagar' , 'Jaipur','Rajasthan' , 'near MNIT' ,102, 212),
+(311,'Villa' , 4, 'sale', 'Badi Choupad' , 'Jaipur','Rajasthan' , 'near Hawa Mahal' , 100, 214),
+(312,'Apartment', 3, 'sale', 'Mahaveer Nagar ' ,'Kota', 'Rajasthan', 'near Allen' , 104, 215),
+(313,'Flat', 2, 'sale' , 'Jhalawar Road' , 'Kota', 'Rajasthan', 'near City Mall' ,103, 218),
+(314,'Apartment', 2, 'rent', 'Adarsh Nagar', 'Jaipur', 'Rajasthan', 'near Albert Hall Museum', 101, 216),
+(315,'Bungalow', 3, 'rent', 'Bartand Road', 'Dhanbad', 'Jharkhand', 'near City Center', 100, 213),
+(316,'Apartment', 2, 'sale', 'Hirapur', 'Dhanbad', 'Jharkhand', 'near IIT(ISM) Dhanbad, 102, 210),
+(317,'Apartment', 2, 'rent', 'Mukherjee Nagar', 'Delhi', 'Delhi', 'near coaching hub', 101, 211),
+(318,'Farmhouse', 2, 'sale', 'Kotkapura', 'Faridkot', 'Punjab', 'near cotton market', 103, 220),
+(319,'Flat', 3, 'rent', 'Maur', 'Bathinda', 'Punjab', 'near Railway', 104, 217),
+(320,'Bungalow', 2, 'sale', 'Sanganer', 'Jaipur', 'Rajasthan', 'near Airport', 103, 219); 
+ 
+
+INSERT INTO buyer (buyerID,bname,contact_no,email,agentID,propertyID) VALUES
+(400, 'Jivesh', 76949, 'js@gmail.com',104,306),
+(201, 'Pawan', 68780, 'pa@gmail.com',103,308),
+(202, 'Mohit', 82123, 'mo@gmail.com',100,305),
+(203, 'Parth', 88143, 'ps@gmail.com',101,306),
+(204, 'Om', 98343, 'op@gmail.com',102,303);
